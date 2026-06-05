@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 导航站 | 快速访问所有AI工具</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f8fafc;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+
+    #search {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 16px;
+      outline: none;
+    }
+
+    #search:focus {
+      border-color: #3b82f6;
+    }
+
+    .category {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .category h2 {
+      font-size: 20px;
+      color: #0f172a;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .link-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .link-item {
+      padding: 10px 14px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .link-item:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+
+    .link-item a {
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      display: block;
+    }
+
+    .link-item small {
+      display: block;
+      color: #64748b;
+      font-size: 12px;
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #64748b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>🧠 AI 工具导航站</h1>
+    <p>所有大模型、本地部署、AI绘画一站式快捷访问</p>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="🔍 搜索 AI 工具...">
+  </div>
+
+  <div id="app"></div>
+
+  <div class="footer">
+    💾 数据存在 GitHub | 🚀 托管于 Cloudflare Pages | 随时可扩展
+  </div>
+
+  <script>
+    // ====================== 你以后只需要在这里加链接 ======================
+    // 格式：["名称", "网址"]
+    // 加完自动显示，自动分类，自动支持搜索！
+    // ====================================================================
+
+    const data = [
+      {
+        category: "国内在线大模型",
+        links: [
+          ["豆包", "https://www.doubao.com"],
+          ["文心一言", "https://yiyan.baidu.com"],
+          ["通义千问", "https://tongyi.aliyun.com"],
+          ["讯飞星火", "https://xinghuo.xfyun.cn"],
+          ["Kimi", "https://kimi.moonshot.cn"],
+          ["DeepSeek", "https://chat.deepseek.com"],
+          ["智谱清言", "https://chatglm.cn"],
+          ["腾讯混元", "https://hunyuan.tencent.com/bot/chat"],
+        ]
+      },
+      {
+        category: "海外在线大模型",
+        links: [
+          ["ChatGPT", "https://chatgpt.com"],
+          ["Gemini", "https://gemini.google.com"],
+          ["Claude", "https://claude.ai/chats"],
+          ["Mistral", "https://chat.mistral.ai"],
+          ["Perplexity", "https://www.perplexity.ai"],
+          ["Poe", "https://poe.com"],
+        ]
+      },
+      {
+        category: "本地部署工具（Ollama / LM）",
+        links: [
+          ["Ollama 官网", "https://ollama.com"],
+          ["Ollama 模型库", "https://ollama.com/library"],
+          ["LM Studio", "https://lmstudio.ai"],
+          ["LocalAI", "https://localai.io"],
+          ["GPT4All", "https://gpt4all.io"],
+          ["Open WebUI", "https://openwebui.com"],
+        ]
+      },
+      {
+        category: "AI 绘画工具",
+        links: [
+          ["ComfyUI", "https://www.comfy.org"],
+          ["Stable Diffusion WebUI", "https://github.com/AUTOMATIC1111/stable-diffusion-webui"],
+          ["Midjourney", "https://www.midjourney.com"],
+        ]
+      },
+      {
+        category: "模型下载站",
+        links: [
+          ["Hugging Face", "https://huggingface.co"],
+          ["魔搭 ModelScope", "https://modelscope.cn"],
+          ["Civitai", "https://civitai.com"],
+        ]
+      }
+    ];
+
+    // ====================== 以下代码不用动 ======================
+
+    function render(list) {
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+
+      list.forEach(sec => {
+        const catDiv = document.createElement('div');
+        catDiv.className = 'category';
+
+        const title = document.createElement('h2');
+        title.textContent = sec.category;
+        catDiv.appendChild(title);
+
+        const listDiv = document.createElement('div');
+        listDiv.className = 'link-list';
+
+        sec.links.forEach(([name, url]) => {
+          const item = document.createElement('div');
+          item.className = 'link-item';
+          item.innerHTML = `
+            <a href="${url}" target="_blank">${name}</a>
+            <small>${url}</small>
+          `;
+          listDiv.appendChild(item);
+        });
+
+        catDiv.appendChild(listDiv);
+        app.appendChild(catDiv);
+      });
+    }
+
+    // 初始渲染
+    render(data);
+
+    // 搜索功能
+    document.getElementById('search').addEventListener('input', e => {
+      const kw = e.target.value.toLowerCase();
+      const newData = data.map(sec => {
+        const filtered = sec.links.filter(([n]) => n.toLowerCase().includes(kw));
+        return { ...sec, links: filtered };
+      }).filter(sec => sec.links.length > 0);
+      render(newData);
+    });
+  </script>
+</body>
+</html>
