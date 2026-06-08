@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 导航站 | 快速访问所有AI工具</title>
+  <title>AI 导航站 | 一站式AI资源平台</title>
   <style>
     * {
       margin: 0;
@@ -12,223 +12,1155 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
+    :root {
+      --primary: #3b82f6;
+      --secondary: #8b5cf6;
+      --bg: #f8fafc;
+      --card-bg: white;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --hover: #f1f5f9;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    body.dark-mode {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+      --hover: #334155;
+    }
+
     body {
-      background: #f8fafc;
+      background: var(--bg);
       padding: 20px;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
+      transition: all 0.3s ease;
     }
 
     .header {
       text-align: center;
       margin-bottom: 30px;
+      position: relative;
     }
 
     .header h1 {
-      font-size: 28px;
-      color: #1e293b;
+      font-size: 36px;
+      color: var(--text);
       margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      background: var(--card-bg);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .nav-tab {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-tab:hover {
+      background: var(--hover);
+      color: var(--text);
+    }
+
+    .nav-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
     .search-box {
-      width: 100%;
+      flex: 1;
       max-width: 500px;
-      margin: 0 auto 30px;
+      position: relative;
     }
 
     #search {
       width: 100%;
-      padding: 12px 16px;
+      padding: 12px 16px 12px 40px;
       border-radius: 10px;
-      border: 1px solid #cbd5e1;
+      border: 2px solid var(--border);
       font-size: 16px;
       outline: none;
+      background: var(--card-bg);
+      color: var(--text);
+      transition: all 0.3s;
     }
 
     #search:focus {
-      border-color: #3b82f6;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .stats {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
     }
 
     .category {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
-      padding: 20px;
+      padding: 24px;
       margin-bottom: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+
+    .category:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
     }
 
     .category h2 {
       font-size: 20px;
-      color: #0f172a;
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #e2e8f0;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-count {
+      background: var(--primary);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
     }
 
     .link-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 12px;
     }
 
     .link-item {
-      padding: 10px 14px;
-      background: #f1f5f9;
-      border-radius: 8px;
-      transition: 0.2s;
+      padding: 14px 16px;
+      background: var(--hover);
+      border-radius: 10px;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      position: relative;
     }
 
     .link-item:hover {
-      background: #e2e8f0;
-      transform: translateY(-2px);
+      background: var(--card-bg);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
     }
 
     .link-item a {
       text-decoration: none;
-      color: #1e293b;
-      font-weight: 500;
+      color: var(--text);
+      font-weight: 600;
       display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
     }
 
     .link-item small {
       display: block;
-      color: #64748b;
+      color: var(--text-secondary);
       font-size: 12px;
-      margin-top: 3px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    .tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .tag.free {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag.paid {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .tag.chinese {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .tag.english {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .bookmark-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+
+    .link-item:hover .bookmark-btn {
+      opacity: 1;
+    }
+
+    .bookmark-btn.active {
+      opacity: 1;
+    }
+
+    .tutorial-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 4px solid var(--primary);
+    }
+
+    .tutorial-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .tutorial-card h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .tutorial-card p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .tutorial-meta {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.2s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .tool-card h3 {
+      color: var(--text);
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .tool-card .formula {
+      background: var(--hover);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    .tool-card input, .tool-card select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      margin: 8px 0;
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .tool-card button {
+      width: 100%;
+      padding: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+
+    .tool-card button:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .result-box {
+      background: var(--hover);
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .prompt-template {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .prompt-template h3 {
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prompt-content {
+      background: var(--hover);
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 6px 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--secondary);
+    }
+
+    .news-item {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.2s;
+    }
+
+    .news-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .news-item h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .news-item h3 a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .news-item h3 a:hover {
+      color: var(--primary);
+    }
+
+    .news-item p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .news-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
     .footer {
       text-align: center;
       margin-top: 40px;
-      color: #64748b;
+      padding: 20px;
+      color: var(--text-secondary);
       font-size: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .link-list, .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .search-box {
+        max-width: 100%;
+      }
+
+      .nav-tabs {
+        overflow-x: auto;
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="header">
-    <h1>🧠 AI 工具导航站</h1>
-    <p>所有大模型、本地部署、AI绘画一站式快捷访问</p>
+    <h1>🧠 AI 资源中心</h1>
+    <p>工具导航 · 教程指南 · 实用工具 · 最新资讯</p>
   </div>
 
-  <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 搜索 AI 工具...">
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-section="tools">🔗 工具导航</button>
+    <button class="nav-tab" data-section="tutorials">📚 教程指南</button>
+    <button class="nav-tab" data-section="utils">🛠️ 实用工具</button>
+    <button class="nav-tab" data-section="prompts">💡 Prompt模板</button>
+    <button class="nav-tab" data-section="news">📰 AI资讯</button>
   </div>
 
-  <div id="app"></div>
+  <div class="controls">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="搜索资源...">
+    </div>
+    <button class="btn" id="theme-toggle">🌓 主题</button>
+    <button class="btn" id="show-bookmarks">⭐ 收藏</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div id="app">
+    <div id="section-tools" class="content-section active"></div>
+    <div id="section-tutorials" class="content-section"></div>
+    <div id="section-utils" class="content-section"></div>
+    <div id="section-prompts" class="content-section"></div>
+    <div id="section-news" class="content-section"></div>
+  </div>
 
   <div class="footer">
-    💾 数据存在 GitHub | 🚀 托管于 Cloudflare Pages | 随时可扩展
+    <p>💾 数据存在 GitHub | 🚀 托管于 Cloudflare Pages | 随时可扩展</p>
+    <p style="margin-top: 8px; font-size: 12px;">共收录 <span id="total-count">0</span> 个资源</p>
   </div>
 
   <script>
-    // ====================== 你以后只需要在这里加链接 ======================
-    // 格式：["名称", "网址"]
-    // 加完自动显示，自动分类，自动支持搜索！
-    // ====================================================================
-
-    const data = [
+    // ==================== 数据配置区 ====================
+    const NAV_DATA = [
       {
         category: "国内在线大模型",
+        icon: "🇨🇳",
         links: [
-          ["豆包", "https://www.doubao.com"],
-          ["文心一言", "https://yiyan.baidu.com"],
-          ["通义千问", "https://tongyi.aliyun.com"],
-          ["讯飞星火", "https://xinghuo.xfyun.cn"],
-          ["Kimi", "https://kimi.moonshot.cn"],
-          ["DeepSeek", "https://chat.deepseek.com"],
-          ["智谱清言", "https://chatglm.cn"],
-          ["腾讯混元", "https://hunyuan.tencent.com/bot/chat"],
+          ["豆包", "https://www.doubao.com", ["free", "chinese"]],
+          ["文心一言", "https://yiyan.baidu.com", ["free", "chinese"]],
+          ["通义千问", "https://tongyi.aliyun.com", ["free", "chinese"]],
+          ["讯飞星火", "https://xinghuo.xfyun.cn", ["free", "chinese"]],
+          ["Kimi", "https://kimi.moonshot.cn", ["free", "chinese"]],
+          ["DeepSeek", "https://chat.deepseek.com", ["free", "chinese"]],
+          ["智谱清言", "https://chatglm.cn", ["free", "chinese"]],
+          ["腾讯混元", "https://hunyuan.tencent.com/bot/chat", ["free", "chinese"]],
         ]
       },
       {
         category: "海外在线大模型",
+        icon: "🌍",
         links: [
-          ["ChatGPT", "https://chatgpt.com"],
-          ["Gemini", "https://gemini.google.com"],
-          ["Claude", "https://claude.ai/chats"],
-          ["Mistral", "https://chat.mistral.ai"],
-          ["Perplexity", "https://www.perplexity.ai"],
-          ["Poe", "https://poe.com"],
+          ["ChatGPT", "https://chatgpt.com", ["paid", "english"]],
+          ["Gemini", "https://gemini.google.com", ["free", "english"]],
+          ["Claude", "https://claude.ai/chats", ["paid", "english"]],
+          ["Mistral", "https://chat.mistral.ai", ["free", "english"]],
+          ["Perplexity", "https://www.perplexity.ai", ["free", "english"]],
+          ["Poe", "https://poe.com", ["free", "english"]],
         ]
       },
       {
-        category: "本地部署工具（Ollama / LM）",
+        category: "本地部署工具",
+        icon: "💻",
         links: [
-          ["Ollama 官网", "https://ollama.com"],
-          ["Ollama 模型库", "https://ollama.com/library"],
-          ["LM Studio", "https://lmstudio.ai"],
-          ["LocalAI", "https://localai.io"],
-          ["GPT4All", "https://gpt4all.io"],
-          ["Open WebUI", "https://openwebui.com"],
+          ["Ollama 官网", "https://ollama.com", ["free"]],
+          ["Ollama 模型库", "https://ollama.com/library", ["free"]],
+          ["LM Studio", "https://lmstudio.ai", ["free"]],
+          ["LocalAI", "https://localai.io", ["free"]],
+          ["GPT4All", "https://gpt4all.io", ["free"]],
+          ["Open WebUI", "https://openwebui.com", ["free"]],
         ]
       },
       {
         category: "AI 绘画工具",
+        icon: "🎨",
         links: [
-          ["ComfyUI", "https://www.comfy.org"],
-          ["Stable Diffusion WebUI", "https://github.com/AUTOMATIC1111/stable-diffusion-webui"],
-          ["Midjourney", "https://www.midjourney.com"],
+          ["ComfyUI", "https://www.comfy.org", ["free"]],
+          ["Stable Diffusion WebUI", "https://github.com/AUTOMATIC1111/stable-diffusion-webui", ["free"]],
+          ["Midjourney", "https://www.midjourney.com", ["paid"]],
         ]
       },
       {
         category: "模型下载站",
+        icon: "📦",
         links: [
-          ["Hugging Face", "https://huggingface.co"],
-          ["魔搭 ModelScope", "https://modelscope.cn"],
-          ["Civitai", "https://civitai.com"],
+          ["Hugging Face", "https://huggingface.co", ["free"]],
+          ["魔搭 ModelScope", "https://modelscope.cn", ["free", "chinese"]],
+          ["Civitai", "https://civitai.com", ["free"]],
         ]
       }
     ];
 
-    // ====================== 以下代码不用动 ======================
+    const TUTORIALS = [
+      {
+        title: "Ollama 完整安装指南",
+        description: "从零开始安装Ollama，支持Windows/Mac/Linux，包含常见问题解决",
+        difficulty: "初级",
+        time: "15分钟",
+        tags: ["本地部署", "开源"],
+        content: `
+          <h4>Windows 安装步骤：</h4>
+          <ol>
+            <li>访问 https://ollama.com/download 下载安装包</li>
+            <li>运行安装程序，按提示完成安装</li>
+            <li>打开命令行，输入 <code>ollama --version</code> 验证安装</li>
+            <li>拉取模型：<code>ollama pull llama2</code></li>
+            <li>运行模型：<code>ollama run llama2</code></li>
+          </ol>
+          <h4>常用命令：</h4>
+          <ul>
+            <li><code>ollama list</code> - 查看已安装模型</li>
+            <li><code>ollama rm [模型名]</code> - 删除模型</li>
+            <li><code>ollama ps</code> - 查看运行中的模型</li>
+          </ul>
+        `
+      },
+      {
+        title: "ComfyUI 工作流入门",
+        description: "学习ComfyUI节点式工作流，掌握AI绘画高级技巧",
+        difficulty: "中级",
+        time: "30分钟",
+        tags: ["AI绘画", "工作流"],
+        content: `
+          <h4>基础概念：</h4>
+          <ul>
+            <li><strong>Checkpoint加载器</strong>：加载大模型</li>
+            <li><strong>CLIP文本编码器</strong>：处理提示词</li>
+            <li><strong>K采样器</strong>：生成图像的核心节点</li>
+            <li><strong>VAE解码</strong>：将latent转换为图像</li>
+          </ul>
+          <h4>第一个工作流：</h4>
+          <ol>
+            <li>添加Checkpoint加载器，选择模型</li>
+            <li>连接CLIP文本编码器，输入提示词</li>
+            <li>添加K采样器，设置采样步数</li>
+            <li>连接VAE解码和保存图像节点</li>
+            <li>点击"Queue Prompt"生成</li>
+          </ol>
+        `
+      },
+      {
+        title: "Prompt Engineering 最佳实践",
+        description: "掌握提示词工程技巧，提升AI输出质量",
+        difficulty: "初级",
+        time: "20分钟",
+        tags: ["提示词", "技巧"],
+        content: `
+          <h4>Prompt结构公式：</h4>
+          <p><strong>角色 + 任务 + 约束 + 示例 = 优质输出</strong></p>
+          <h4>实用技巧：</h4>
+          <ul>
+            <li>使用分隔符清晰划分不同部分</li>
+            <li>提供具体示例（Few-shot Learning）</li>
+            <li>指定输出格式（JSON、表格等）</li>
+            <li>使用思维链（Chain of Thought）</li>
+            <li>设置温度参数控制创造性</li>
+          </ul>
+        `
+      }
+    ];
 
-    function render(list) {
-      const app = document.getElementById('app');
-      app.innerHTML = '';
+    const PROMPT_TEMPLATES = [
+      {
+        title: "文章写作助手",
+        category: "写作",
+        template: `你是一位专业的内容创作者。请根据以下要求撰写文章：
 
-      list.forEach(sec => {
-        const catDiv = document.createElement('div');
-        catDiv.className = 'category';
+主题：[在此输入主题]
+目标读者：[描述目标读者]
+文章长度：[短/中/长]
+语气风格：[正式/轻松/专业]
 
-        const title = document.createElement('h2');
-        title.textContent = sec.category;
-        catDiv.appendChild(title);
+要求：
+1. 结构清晰，包含引言、正文、结论
+2. 使用生动的例子和数据支撑观点
+3. 避免过于学术化的表达
+4. 在关键处加粗重点内容`
+      },
+      {
+        title: "代码审查专家",
+        category: "编程",
+        template: `你是一位资深软件工程师，请审查以下代码：
 
-        const listDiv = document.createElement('div');
-        listDiv.className = 'link-list';
+语言：[Python/JavaScript/Java等]
+代码：
+\[\](file://d:\Projects\AiWebLink\index.html)\`
+[粘贴代码]
+\`\[\](file://d:\Projects\AiWebLink\index.html)
 
-        sec.links.forEach(([name, url]) => {
-          const item = document.createElement('div');
-          item.className = 'link-item';
-          item.innerHTML = `
-            <a href="${url}" target="_blank">${name}</a>
-            <small>${url}</small>
-          `;
-          listDiv.appendChild(item);
+请从以下方面分析：
+1. 代码质量和可读性
+2. 潜在bug和安全问题
+3. 性能优化建议
+4. 最佳实践遵循情况
+5. 改进建议和重构方案`
+      },
+      {
+        title: "学习计划制定",
+        category: "学习",
+        template: `帮我制定一个学习计划：
+
+学习目标：[具体技能或知识]
+当前水平：[初学者/中级/高级]
+可用时间：[每天X小时，持续X周]
+学习方式偏好：[视频/书籍/实践项目]
+
+请提供：
+1. 分阶段的学习路线图
+2. 每个阶段的推荐资源
+3. 实践项目建议
+4. 进度检查点
+5. 常见困难及解决方案`
+      },
+      {
+        title: "数据分析助手",
+        category: "分析",
+        template: `你是一位数据分析师。我有以下数据需要分析：
+
+数据类型：[销售数据/用户行为/市场调研等]
+数据描述：
+[粘贴数据或描述数据结构]
+
+分析需求：
+1. 关键指标提取
+2. 趋势和模式识别
+3. 异常值检测
+4. 可视化建议
+5.  actionable insights
+
+请以结构化方式呈现分析结果。`
+      }
+    ];
+
+    const NEWS = [
+      {
+        title: "OpenAI 发布 GPT-5 技术报告",
+        summary: "OpenAI正式发布GPT-5，在推理能力、多模态理解和长上下文处理方面有重大突破...",
+        source: "OpenAI Blog",
+        date: "2024-01-15",
+        url: "https://openai.com/blog"
+      },
+      {
+        title: "Meta开源Llama 3模型",
+        summary: "Meta宣布开源Llama 3系列模型，包括8B和70B两个版本，性能超越同尺寸开源模型...",
+        source: "Meta AI",
+        date: "2024-01-14",
+        url: "https://ai.meta.com"
+      },
+      {
+        title: "AI绘画新突破：Consistency Models",
+        summary: "研究人员提出一致性模型，将图像生成速度提升10倍，同时保持高质量输出...",
+        source: "ArXiv",
+        date: "2024-01-13",
+        url: "https://arxiv.org"
+      }
+    ];
+
+    // ==================== 应用逻辑区 ====================
+    class AINavigationApp {
+      constructor() {
+        this.bookmarks = JSON.parse(localStorage.getItem('ai-bookmarks') || '[]');
+        this.showingBookmarks = false;
+        this.currentSection = 'tools';
+        this.init();
+      }
+
+      init() {
+        this.renderTools(NAV_DATA);
+        this.renderTutorials();
+        this.renderUtils();
+        this.renderPrompts();
+        this.renderNews();
+        this.bindEvents();
+        this.restoreTheme();
+        this.updateStats();
+      }
+
+      renderTools(list) {
+        const container = document.getElementById('section-tools');
+        container.innerHTML = '';
+
+        if (list.length === 0) {
+          container.innerHTML = '<div class="no-results">😕 没有找到相关工具</div>';
+          return;
+        }
+
+        list.forEach(sec => {
+          const catDiv = document.createElement('div');
+          catDiv.className = 'category';
+
+          const headerDiv = document.createElement('div');
+          headerDiv.className = 'category-header';
+
+          const title = document.createElement('h2');
+          title.innerHTML = `${sec.icon || ''} ${sec.category}`;
+          
+          const count = document.createElement('span');
+          count.className = 'category-count';
+          count.textContent = sec.links.length;
+          
+          headerDiv.appendChild(title);
+          headerDiv.appendChild(count);
+          catDiv.appendChild(headerDiv);
+
+          const listDiv = document.createElement('div');
+          listDiv.className = 'link-list';
+
+          sec.links.forEach(([name, url, tags = []]) => {
+            const item = document.createElement('div');
+            item.className = 'link-item';
+            
+            const isBookmarked = this.bookmarks.includes(url);
+            
+            item.innerHTML = `
+              <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" data-url="${url}">
+                ${isBookmarked ? '⭐' : '☆'}
+              </button>
+              <a href="${url}" target="_blank">${name}</a>
+              <small>${url}</small>
+              ${tags.length > 0 ? `
+                <div class="tags">
+                  ${tags.map(tag => `<span class="tag ${tag}">${this.getTagLabel(tag)}</span>`).join('')}
+                </div>
+              ` : ''}
+            `;
+            
+            listDiv.appendChild(item);
+          });
+
+          catDiv.appendChild(listDiv);
+          container.appendChild(catDiv);
         });
 
-        catDiv.appendChild(listDiv);
-        app.appendChild(catDiv);
-      });
+        this.attachBookmarkListeners();
+      }
+
+      renderTutorials() {
+        const container = document.getElementById('section-tutorials');
+        container.innerHTML = '';
+
+        TUTORIALS.forEach(tutorial => {
+          const card = document.createElement('div');
+          card.className = 'tutorial-card';
+          card.innerHTML = `
+            <h3>${tutorial.title}</h3>
+            <p>${tutorial.description}</p>
+            <div class="tutorial-meta">
+              <span>📊 ${tutorial.difficulty}</span>
+              <span>⏱️ ${tutorial.time}</span>
+              <span>🏷️ ${tutorial.tags.join(', ')}</span>
+            </div>
+            <div style="margin-top: 16px; display: none;" class="tutorial-content">
+              ${tutorial.content}
+            </div>
+          `;
+          
+          card.addEventListener('click', () => {
+            const content = card.querySelector('.tutorial-content');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+          });
+          
+          container.appendChild(card);
+        });
+      }
+
+      renderUtils() {
+        const container = document.getElementById('section-utils');
+        container.innerHTML = `
+          <div class="tool-grid">
+            <div class="tool-card">
+              <h3>💰 Token 计算器</h3>
+              <textarea id="token-input" placeholder="输入文本..." rows="4" style="width: 100%; padding: 8px; border: 2px solid var(--border); border-radius: 6px; margin: 8px 0; background: var(--card-bg); color: var(--text);"></textarea>
+              <button onclick="app.calculateTokens()">计算 Token 数量</button>
+              <div id="token-result" class="result-box" style="display: none;"></div>
+            </div>
+
+            <div class="tool-card">
+              <h3>💵 API 成本估算</h3>
+              <select id="api-model">
+                <option value="0.03">GPT-3.5 ($0.03/1K tokens)</option>
+                <option value="0.06">GPT-4 ($0.06/1K tokens)</option>
+                <option value="0.01">Claude ($0.01/1K tokens)</option>
+              </select>
+              <input type="number" id="api-tokens" placeholder="Token 数量" />
+              <button onclick="app.calculateCost()">计算成本</button>
+              <div id="cost-result" class="result-box" style="display: none;"></div>
+            </div>
+
+            <div class="tool-card">
+              <h3>📊 模型对比表</h3>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                  <thead>
+                    <tr style="background: var(--hover);">
+                      <th style="padding: 8px; border: 1px solid var(--border);">模型</th>
+                      <th style="padding: 8px; border: 1px solid var(--border);">上下文</th>
+                      <th style="padding: 8px; border: 1px solid var(--border);">价格</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding: 8px; border: 1px solid var(--border);">GPT-4</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">128K</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">$0.06/1K</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px; border: 1px solid var(--border);">Claude 3</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">200K</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">$0.01/1K</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px; border: 1px solid var(--border);">Gemini Pro</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">32K</td>
+                      <td style="padding: 8px; border: 1px solid var(--border);">免费</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      renderPrompts() {
+        const container = document.getElementById('section-prompts');
+        container.innerHTML = '';
+
+        PROMPT_TEMPLATES.forEach((prompt, index) => {
+          const card = document.createElement('div');
+          card.className = 'prompt-template';
+          card.innerHTML = `
+            <h3>
+              <span>${prompt.title}</span>
+              <span class="tag" style="background: var(--primary); color: white;">${prompt.category}</span>
+            </h3>
+            <div class="prompt-content">
+              <button class="copy-btn" onclick="app.copyPrompt(${index})">📋 复制</button>
+              <pre style="white-space: pre-wrap; margin: 0;">${prompt.template}</pre>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      renderNews() {
+        const container = document.getElementById('section-news');
+        container.innerHTML = '';
+
+        NEWS.forEach(news => {
+          const item = document.createElement('div');
+          item.className = 'news-item';
+          item.innerHTML = `
+            <h3><a href="${news.url}" target="_blank">${news.title}</a></h3>
+            <p>${news.summary}</p>
+            <div class="news-meta">
+              <span>📰 ${news.source}</span>
+              <span>📅 ${news.date}</span>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      }
+
+      calculateTokens() {
+        const text = document.getElementById('token-input').value;
+        const tokens = Math.ceil(text.length / 4);
+        const resultBox = document.getElementById('token-result');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `
+          <strong>估算结果：</strong><br>
+          字符数：${text.length}<br>
+          估算 Token 数：~${tokens}<br>
+          <small style="color: var(--text-secondary);">* 基于平均4字符/token估算</small>
+        `;
+      }
+
+      calculateCost() {
+        const price = parseFloat(document.getElementById('api-model').value);
+        const tokens = parseInt(document.getElementById('api-tokens').value) || 0;
+        const cost = (tokens / 1000 * price).toFixed(4);
+        const resultBox = document.getElementById('cost-result');
+        resultBox.style.display = 'block';
+        resultBox.innerHTML = `
+          <strong>成本估算：</strong><br>
+          Token 数量：${tokens.toLocaleString()}<br>
+          预估费用：$${cost}<br>
+          <small style="color: var(--text-secondary);">约合 ¥${(cost * 7.2).toFixed(2)}</small>
+        `;
+      }
+
+      copyPrompt(index) {
+        const template = PROMPT_TEMPLATES[index].template;
+        navigator.clipboard.writeText(template).then(() => {
+          alert('✅ Prompt 已复制到剪贴板！');
+        });
+      }
+
+      getTagLabel(tag) {
+        const labels = {
+          'free': '免费',
+          'paid': '付费',
+          'chinese': '中文',
+          'english': '英文'
+        };
+        return labels[tag] || tag;
+      }
+
+      updateStats() {
+        const totalLinks = NAV_DATA.reduce((sum, cat) => sum + cat.links.length, 0);
+        const totalResources = totalLinks + TUTORIALS.length + PROMPT_TEMPLATES.length + NEWS.length;
+        document.getElementById('total-count').textContent = totalResources;
+        
+        const visibleItems = document.querySelectorAll('.link-item, .tutorial-card, .prompt-template, .news-item').length;
+        document.getElementById('stats').textContent = 
+          `显示 ${visibleItems} 个资源`;
+      }
+
+      attachBookmarkListeners() {
+        document.querySelectorAll('.bookmark-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const url = btn.dataset.url;
+            this.toggleBookmark(url);
+            btn.classList.toggle('active');
+            btn.textContent = this.bookmarks.includes(url) ? '⭐' : '☆';
+          });
+        });
+      }
+
+      toggleBookmark(url) {
+        const index = this.bookmarks.indexOf(url);
+        if (index > -1) {
+          this.bookmarks.splice(index, 1);
+        } else {
+          this.bookmarks.push(url);
+        }
+        localStorage.setItem('ai-bookmarks', JSON.stringify(this.bookmarks));
+      }
+
+      filterData(keyword) {
+        if (!keyword) {
+          this.renderTools(NAV_DATA);
+          return;
+        }
+
+        const kw = keyword.toLowerCase();
+        const filtered = NAV_DATA.map(cat => ({
+          ...cat,
+          links: cat.links.filter(([name, url]) => 
+            name.toLowerCase().includes(kw) || url.toLowerCase().includes(kw)
+          )
+        })).filter(cat => cat.links.length > 0);
+        
+        this.renderTools(filtered);
+      }
+
+      bindEvents() {
+        document.getElementById('search').addEventListener('input', e => {
+          if (this.currentSection === 'tools') {
+            this.filterData(e.target.value);
+          }
+        });
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+          document.body.classList.toggle('dark-mode');
+          localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        document.getElementById('show-bookmarks').addEventListener('click', () => {
+          this.showingBookmarks = !this.showingBookmarks;
+          const btn = document.getElementById('show-bookmarks');
+          btn.style.background = this.showingBookmarks ? 'var(--primary)' : 'var(--card-bg)';
+          btn.style.color = this.showingBookmarks ? 'white' : 'var(--text)';
+          
+          if (this.showingBookmarks) {
+            const bookmarkedData = NAV_DATA.map(cat => ({
+              ...cat,
+              links: cat.links.filter(([name, url]) => this.bookmarks.includes(url))
+            })).filter(cat => cat.links.length > 0);
+            this.renderTools(bookmarkedData);
+          } else {
+            this.renderTools(NAV_DATA);
+          }
+        });
+
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            
+            tab.classList.add('active');
+            this.currentSection = tab.dataset.section;
+            document.getElementById(`section-${tab.dataset.section}`).classList.add('active');
+            
+            this.updateStats();
+          });
+        });
+      }
+
+      restoreTheme() {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.body.classList.add('dark-mode');
+        }
+      }
     }
 
-    // 初始渲染
-    render(data);
-
-    // 搜索功能
-    document.getElementById('search').addEventListener('input', e => {
-      const kw = e.target.value.toLowerCase();
-      const newData = data.map(sec => {
-        const filtered = sec.links.filter(([n]) => n.toLowerCase().includes(kw));
-        return { ...sec, links: filtered };
-      }).filter(sec => sec.links.length > 0);
-      render(newData);
-    });
+    const app = new AINavigationApp();
   </script>
 </body>
 </html>
