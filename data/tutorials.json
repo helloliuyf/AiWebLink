@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Ollama 完整安装指南",
+    "description": "从零开始安装Ollama，支持Windows/Mac/Linux，包含常见问题解决",
+    "difficulty": "初级",
+    "time": "15分钟",
+    "tags": ["本地部署", "开源"],
+    "content": "<h4>Windows 安装步骤：</h4><ol><li>访问 https://ollama.com/download 下载安装包</li><li>运行安装程序，按提示完成安装</li><li>打开命令行，输入 <code>ollama --version</code> 验证安装</li><li>拉取模型：<code>ollama pull llama2</code></li><li>运行模型：<code>ollama run llama2</code></li></ol><h4>常用命令：</h4><ul><li><code>ollama list</code> - 查看已安装模型</li><li><code>ollama rm [模型名]</code> - 删除模型</li><li><code>ollama ps</code> - 查看运行中的模型</li></ul>"
+  },
+  {
+    "title": "ComfyUI 工作流入门",
+    "description": "学习ComfyUI节点式工作流，掌握AI绘画高级技巧",
+    "difficulty": "中级",
+    "time": "30分钟",
+    "tags": ["AI绘画", "工作流"],
+    "content": "<h4>基础概念：</h4><ul><li><strong>Checkpoint加载器</strong>：加载大模型</li><li><strong>CLIP文本编码器</strong>：处理提示词</li><li><strong>K采样器</strong>：生成图像的核心节点</li><li><strong>VAE解码</strong>：将latent转换为图像</li></ul><h4>第一个工作流：</h4><ol><li>添加Checkpoint加载器，选择模型</li><li>连接CLIP文本编码器，输入提示词</li><li>添加K采样器，设置采样步数</li><li>连接VAE解码和保存图像节点</li><li>点击\"Queue Prompt\"生成</li></ol>"
+  },
+  {
+    "title": "Prompt Engineering 最佳实践",
+    "description": "掌握提示词工程技巧，提升AI输出质量",
+    "difficulty": "初级",
+    "time": "20分钟",
+    "tags": ["提示词", "技巧"],
+    "content": "<h4>Prompt结构公式：</h4><p><strong>角色 + 任务 + 约束 + 示例 = 优质输出</strong></p><h4>实用技巧：</h4><ul><li>使用分隔符清晰划分不同部分</li><li>提供具体示例（Few-shot Learning）</li><li>指定输出格式（JSON、表格等）</li><li>使用思维链（Chain of Thought）</li><li>设置温度参数控制创造性</li></ul>"
+  }
+]

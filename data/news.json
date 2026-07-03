@@ -1,0 +1,23 @@
+[
+  {
+    "title": "OpenAI 发布 GPT-5 技术报告",
+    "summary": "OpenAI正式发布GPT-5，在推理能力、多模态理解和长上下文处理方面有重大突破...",
+    "source": "OpenAI Blog",
+    "date": "2024-01-15",
+    "url": "https://openai.com/blog"
+  },
+  {
+    "title": "Meta开源Llama 3模型",
+    "summary": "Meta宣布开源Llama 3系列模型，包括8B和70B两个版本，性能超越同尺寸开源模型...",
+    "source": "Meta AI",
+    "date": "2024-01-14",
+    "url": "https://ai.meta.com"
+  },
+  {
+    "title": "AI绘画新突破：Consistency Models",
+    "summary": "研究人员提出一致性模型，将图像生成速度提升10倍，同时保持高质量输出...",
+    "source": "ArXiv",
+    "date": "2024-01-13",
+    "url": "https://arxiv.org"
+  }
+]

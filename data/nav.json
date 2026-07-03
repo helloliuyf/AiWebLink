@@ -1,0 +1,58 @@
+[
+  {
+    "category": "国内在线大模型",
+    "icon": "🇨🇳",
+    "links": [
+      ["豆包", "https://www.doubao.com", ["free", "chinese"]],
+      ["文心一言", "https://yiyan.baidu.com", ["free", "chinese"]],
+      ["通义千问", "https://tongyi.aliyun.com", ["free", "chinese"]],
+      ["讯飞星火", "https://xinghuo.xfyun.cn", ["free", "chinese"]],
+      ["Kimi", "https://kimi.moonshot.cn", ["free", "chinese"]],
+      ["DeepSeek", "https://chat.deepseek.com", ["free", "chinese"]],
+      ["智谱清言", "https://chatglm.cn", ["free", "chinese"]],
+      ["腾讯混元", "https://hunyuan.tencent.com/bot/chat", ["free", "chinese"]]
+    ]
+  },
+  {
+    "category": "海外在线大模型",
+    "icon": "🌍",
+    "links": [
+      ["ChatGPT", "https://chatgpt.com", ["paid", "english"]],
+      ["Gemini", "https://gemini.google.com", ["free", "english"]],
+      ["Claude", "https://claude.ai/chats", ["paid", "english"]],
+      ["Mistral", "https://chat.mistral.ai", ["free", "english"]],
+      ["Perplexity", "https://www.perplexity.ai", ["free", "english"]],
+      ["Poe", "https://poe.com", ["free", "english"]]
+    ]
+  },
+  {
+    "category": "本地部署工具",
+    "icon": "💻",
+    "links": [
+      ["Ollama 官网", "https://ollama.com", ["free"]],
+      ["Ollama 模型库", "https://ollama.com/library", ["free"]],
+      ["LM Studio", "https://lmstudio.ai", ["free"]],
+      ["LocalAI", "https://localai.io", ["free"]],
+      ["GPT4All", "https://gpt4all.io", ["free"]],
+      ["Open WebUI", "https://openwebui.com", ["free"]]
+    ]
+  },
+  {
+    "category": "AI 绘画工具",
+    "icon": "🎨",
+    "links": [
+      ["ComfyUI", "https://www.comfy.org", ["free"]],
+      ["Stable Diffusion WebUI", "https://github.com/AUTOMATIC1111/stable-diffusion-webui", ["free"]],
+      ["Midjourney", "https://www.midjourney.com", ["paid"]]
+    ]
+  },
+  {
+    "category": "模型下载站",
+    "icon": "📦",
+    "links": [
+      ["Hugging Face", "https://huggingface.co", ["free"]],
+      ["魔搭 ModelScope", "https://modelscope.cn", ["free", "chinese"]],
+      ["Civitai", "https://civitai.com", ["free"]]
+    ]
+  }
+]
