@@ -53,6 +53,51 @@ class UtilsRenderer {
             </table>
           </div>
         </div>
+
+        <div class="tool-card">
+          <h3>🌐 快捷入口</h3>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+            <a href="https://matrix.tencent.com/ai-detect/ai_gen" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--hover);">
+              <span style="font-size: 20px;">🔥</span>
+              <span>朱雀大模型</span>
+            </a>
+            <a href="https://www.yizhuan5.com/app/creation" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--hover);">
+              <span style="font-size: 20px;">✍️</span>
+              <span>易撰检测</span>
+            </a>
+          </div>
+        </div>
+
+
+        <div class="tool-card">
+          <h3>📚 知识库入口</h3>
+          <ul style="list-style: none; padding: 0; margin: 10px 0 0 0;">
+            <!-- 在此处添加您的知识库入口列表项 -->
+            <!--知乎-->
+            <li style="margin-bottom: 8px;">
+              <a href="https://www.zhihu.com" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--hover);">
+                <span style="font-size: 20px;">💡</span>
+                <span>知乎</span>
+              </a>
+            </li>
+            <!--百度文库-->
+            <li style="margin-bottom: 8px;">
+              <a href="https://wenku.baidu.com/view/40fd9cc86d85ec3a87c24028915f804d2a1687c0.html?fr=hp_RecentDoc&_wkts_=1783407908854" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--hover);">
+                <span style="font-size: 20px;">📖</span>
+                <span>百度文库</span>
+              </a>
+            </li>
+           <!-- 汉语国学 -->
+            <li style="margin-bottom: 8px;">
+              <a href="https://www.hanyuguoxue.com/chengyu/" target="_blank" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--hover);">
+                <span style="font-size: 20px;">📜</span>
+                <span>汉语国学</span>
+              </a>
+            </li>
+          
+          </ul>
+        </div>
+
       </div>
     `;
   }
